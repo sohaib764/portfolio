@@ -1,329 +1,1133 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <title>Sohaib Shaikh | Software Developer</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sohaib Shaikh | Software Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-    <link rel="stylesheet" href="style.css">
+  <style>
+    /* ─── Reset & Variables ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #080D1A;
+      --bg2:      #0E1525;
+      --card:     #111827;
+      --card2:    #1a2235;
+      --border:   rgba(99,102,241,0.18);
+      --accent:   #6366F1;
+      --accent2:  #818CF8;
+      --glow:     rgba(99,102,241,0.35);
+      --text:     #E8EEFF;
+      --muted:    #8892AA;
+      --soft:     #A5B4FC;
+      --white:    #ffffff;
+      --font-d:   'Space Grotesk', sans-serif;
+      --font-b:   'Inter', sans-serif;
+      --font-m:   'JetBrains Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-b);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    ::selection { background: var(--accent); color: var(--white); }
+
+    /* ─── Scrollbar ─── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+
+    /* ─── Nav ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 5vw;
+      background: rgba(8,13,26,0.82);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+      transition: all 0.3s;
+    }
+
+    .nav-logo {
+      font-family: var(--font-d);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.02em;
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+
+    .nav-links a {
+      font-family: var(--font-b);
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      transition: color 0.2s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute; bottom: -4px; left: 0; right: 0; height: 1px;
+      background: var(--accent);
+      transform: scaleX(0); transform-origin: right;
+      transition: transform 0.3s ease;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: all 0.3s; }
+
+    /* ─── Hero ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 8rem 5vw 5rem;
+      position: relative; overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute; top: -30%; right: -10%;
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(99,102,241,0.13) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center;
+      max-width: 1200px; width: 100%; margin: 0 auto;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-m);
+      font-size: 0.78rem;
+      color: var(--accent2);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.1rem;
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block; width: 28px; height: 1px;
+      background: var(--accent2);
+    }
+
+    .hero h1 {
+      font-family: var(--font-d);
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-role {
+      font-family: var(--font-d);
+      font-size: clamp(1rem, 2.2vw, 1.45rem);
+      font-weight: 500;
+      color: var(--accent2);
+      margin-bottom: 1.4rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+
+    .cursor {
+      display: inline-block; width: 2px; height: 1.1em;
+      background: var(--accent);
+      animation: blink 1s step-end infinite;
+      vertical-align: text-bottom; border-radius: 1px;
+    }
+
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    .hero-desc {
+      font-size: 1rem; color: var(--muted);
+      max-width: 440px; margin-bottom: 2.2rem; line-height: 1.75;
+    }
+
+    .hero-btns { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1.6rem;
+      border-radius: 8px;
+      font-family: var(--font-b);
+      font-size: 0.88rem; font-weight: 500;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      cursor: pointer; border: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--white);
+      box-shadow: 0 0 22px var(--glow);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent2);
+      transform: translateY(-2px);
+      box-shadow: 0 0 32px var(--glow);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent2);
+      background: rgba(99,102,241,0.07);
+      transform: translateY(-2px);
+    }
+
+    .btn i { font-size: 0.95em; }
+
+    /* Hero image */
+    .hero-visual {
+      display: flex; justify-content: center; align-items: center;
+      position: relative;
+    }
+
+    .avatar-ring {
+      position: relative;
+      width: 320px; height: 320px;
+    }
+
+    .avatar-ring::before {
+      content: '';
+      position: absolute; inset: -12px;
+      border-radius: 50%;
+      border: 1.5px solid transparent;
+      background: linear-gradient(135deg, var(--accent), transparent, var(--accent2)) border-box;
+      -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: destination-out;
+      mask-composite: exclude;
+      animation: spin 8s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .avatar-ring img {
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--bg2);
+      position: relative; z-index: 1;
+      display: block;
+    }
+
+    /* Fallback placeholder when image not found */
+    .avatar-placeholder {
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--card2), var(--card));
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 0.5rem;
+      border: 3px solid var(--bg2);
+      position: relative; z-index: 1;
+    }
+
+    .avatar-placeholder i { font-size: 5rem; color: var(--accent2); opacity: 0.6; }
+    .avatar-placeholder span {
+      font-family: var(--font-d); font-size: 1.2rem;
+      font-weight: 600; color: var(--muted);
+    }
+
+    .badge-float {
+      position: absolute;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.55rem 0.9rem;
+      font-family: var(--font-m);
+      font-size: 0.75rem;
+      color: var(--soft);
+      white-space: nowrap;
+      z-index: 2;
+    }
+
+    .badge-float.b1 { top: 10%; right: -10%; }
+    .badge-float.b2 { bottom: 15%; left: -12%; }
+    .badge-float.b3 { bottom: 5%; right: -5%; }
+
+    /* ─── Section Base ─── */
+    section {
+      padding: 5.5rem 5vw;
+      position: relative;
+    }
+
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+
+    .section-label {
+      font-family: var(--font-m);
+      font-size: 0.75rem;
+      color: var(--accent2);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+
+    .section-label::before {
+      content: '';
+      display: inline-block; width: 20px; height: 1px;
+      background: var(--accent);
+    }
+
+    .section-heading {
+      font-family: var(--font-d);
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 3rem;
+    }
+
+    .section-heading em { color: var(--accent); font-style: normal; }
+
+    /* ─── About ─── */
+    #about { background: var(--bg2); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: start;
+    }
+
+    .about-text p {
+      color: var(--muted); font-size: 1rem;
+      line-height: 1.8; margin-bottom: 1.2rem;
+    }
+
+    .about-text p:last-child { margin-bottom: 0; }
+
+    .about-stats {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .stat-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.4rem 1.2rem;
+      text-align: center;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+
+    .stat-box:hover { border-color: var(--accent); transform: translateY(-3px); }
+
+    .stat-num {
+      font-family: var(--font-d);
+      font-size: 2rem; font-weight: 700;
+      color: var(--accent2);
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.8rem; color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
+    /* ─── Skills ─── */
+    #skills { background: var(--bg); }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 1rem;
+    }
+
+    .skill-pill {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.2rem;
+      display: flex; align-items: center; gap: 0.75rem;
+      font-family: var(--font-b);
+      font-size: 0.88rem; font-weight: 500;
+      color: var(--text);
+      transition: all 0.25s ease;
+      cursor: default;
+    }
+
+    .skill-pill:hover {
+      border-color: var(--accent);
+      background: rgba(99,102,241,0.08);
+      color: var(--white);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(99,102,241,0.15);
+    }
+
+    .skill-pill i {
+      font-size: 1.2rem;
+      color: var(--accent2);
+      width: 1.4rem; text-align: center;
+    }
+
+    /* ─── Projects ─── */
+    #projects { background: var(--bg2); }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 1.4rem;
+    }
+
+    .proj-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.8rem;
+      display: flex; flex-direction: column;
+      transition: all 0.3s ease;
+      position: relative; overflow: hidden;
+    }
+
+    .proj-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    .proj-card:hover {
+      border-color: rgba(99,102,241,0.45);
+      transform: translateY(-5px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+    }
+
+    .proj-card:hover::before { transform: scaleX(1); }
+
+    .proj-icon {
+      width: 42px; height: 42px; border-radius: 10px;
+      background: rgba(99,102,241,0.12);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.2rem;
+    }
+
+    .proj-icon i { font-size: 1.1rem; color: var(--accent2); }
+
+    .proj-card h3 {
+      font-family: var(--font-d);
+      font-size: 1.05rem; font-weight: 600;
+      color: var(--white); margin-bottom: 0.6rem;
+    }
+
+    .proj-card p {
+      font-size: 0.88rem; color: var(--muted);
+      line-height: 1.65; margin-bottom: 1.4rem; flex: 1;
+    }
+
+    .proj-foot {
+      display: flex; align-items: center;
+      justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;
+    }
+
+    .proj-tag {
+      font-family: var(--font-m);
+      font-size: 0.72rem; color: var(--accent2);
+      background: rgba(99,102,241,0.12);
+      padding: 0.3rem 0.7rem; border-radius: 5px;
+    }
+
+    .proj-link {
+      font-size: 0.82rem; color: var(--accent2);
+      text-decoration: none; font-weight: 500;
+      display: flex; align-items: center; gap: 0.3rem;
+      transition: color 0.2s, gap 0.2s;
+    }
+
+    .proj-link:hover { color: var(--white); gap: 0.5rem; }
+    .proj-link.disabled { opacity: 0.4; pointer-events: none; }
+
+    /* ─── GitHub Stats ─── */
+    #github { background: var(--bg); }
+
+    .github-grid {
+      display: flex; flex-wrap: wrap; gap: 1.2rem;
+      justify-content: center;
+    }
+
+    .github-grid img {
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      max-width: 100%; height: auto;
+      transition: transform 0.3s;
+    }
+
+    .github-grid img:hover { transform: translateY(-4px); }
+
+    /* ─── GitHub CTA ─── */
+    #github { background: var(--bg); }
+
+    .github-cta {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.8rem 2rem;
+      display: flex; align-items: center;
+      justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;
+      margin-bottom: 1.4rem;
+      transition: border-color 0.3s;
+    }
+
+    .github-cta:hover { border-color: var(--accent); }
+
+    .github-cta-left {
+      display: flex; align-items: center; gap: 1.2rem;
+    }
+
+    .github-avatar {
+      width: 52px; height: 52px; border-radius: 12px;
+      background: rgba(99,102,241,0.12);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .github-avatar i { font-size: 1.6rem; color: var(--accent2); }
+
+    .github-cta-left h3 {
+      font-family: var(--font-d);
+      font-size: 1.1rem; font-weight: 600;
+      color: var(--white); margin-bottom: 0.2rem;
+    }
+
+    .github-cta-left p { font-size: 0.86rem; color: var(--muted); max-width: 380px; }
+
+    .repo-highlights {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+
+    .repo-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.4rem;
+      transition: all 0.25s ease;
+    }
+
+    .repo-card:hover {
+      border-color: rgba(99,102,241,0.45);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .repo-card-top {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.8rem;
+    }
+
+    .repo-card-top i { color: var(--accent2); font-size: 1rem; }
+
+    .repo-card h4 {
+      font-family: var(--font-m);
+      font-size: 0.82rem; font-weight: 500;
+      color: var(--white); margin-bottom: 0.4rem;
+    }
+
+    .repo-card p {
+      font-size: 0.82rem; color: var(--muted);
+      line-height: 1.55; margin-bottom: 1rem;
+    }
+
+    /* ─── Education ─── */
+    #education { background: var(--bg2); }
+
+    .edu-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2rem 2.2rem;
+      display: flex; align-items: flex-start; gap: 1.4rem;
+      max-width: 560px;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+
+    .edu-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+
+    .edu-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: rgba(99,102,241,0.12);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .edu-icon i { font-size: 1.3rem; color: var(--accent2); }
+
+    .edu-info h3 {
+      font-family: var(--font-d);
+      font-size: 1.1rem; font-weight: 600;
+      color: var(--white); margin-bottom: 0.25rem;
+    }
+
+    .edu-info p { font-size: 0.88rem; color: var(--muted); }
+
+    .edu-badge {
+      display: inline-block;
+      font-family: var(--font-m);
+      font-size: 0.7rem; color: var(--accent2);
+      background: rgba(99,102,241,0.12);
+      padding: 0.25rem 0.6rem; border-radius: 4px;
+      margin-top: 0.5rem;
+    }
+
+    /* ─── Contact ─── */
+    #contact { background: var(--bg); }
+
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1.3fr; gap: 4rem; align-items: start;
+    }
+
+    .contact-info h3 {
+      font-family: var(--font-d);
+      font-size: 1.1rem; font-weight: 600;
+      color: var(--white); margin-bottom: 0.5rem;
+    }
+
+    .contact-info p { font-size: 0.9rem; color: var(--muted); margin-bottom: 1.8rem; }
+
+    .contact-link {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.85rem 1.1rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.88rem;
+      transition: all 0.25s;
+      margin-bottom: 0.8rem;
+    }
+
+    .contact-link i { color: var(--accent2); width: 1.1rem; }
+    .contact-link:hover { border-color: var(--accent); color: var(--white); background: rgba(99,102,241,0.07); transform: translateX(4px); }
+
+    /* Form */
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+
+    .form-group label {
+      font-size: 0.8rem; font-weight: 500;
+      color: var(--muted); letter-spacing: 0.04em;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 0.85rem 1.1rem;
+      color: var(--text);
+      font-family: var(--font-b);
+      font-size: 0.92rem;
+      outline: none;
+      transition: border-color 0.25s;
+      resize: vertical;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus { border-color: var(--accent); }
+
+    .contact-form textarea { min-height: 130px; }
+
+    .contact-form button {
+      align-self: flex-start;
+      font-family: var(--font-b);
+    }
+
+    /* ─── Footer ─── */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 2rem 5vw;
+      text-align: center;
+    }
+
+    footer p { font-size: 0.82rem; color: var(--muted); }
+    footer span { color: var(--accent); }
+
+    /* ─── Reveal animation ─── */
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ─── Mobile Nav ─── */
+    .mobile-menu {
+      display: none;
+      position: fixed; top: 0; right: 0; bottom: 0; left: 0;
+      background: rgba(8,13,26,0.97);
+      z-index: 99;
+      flex-direction: column; align-items: center; justify-content: center;
+      gap: 2rem;
+    }
+
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-family: var(--font-d); font-size: 1.6rem; color: var(--text); text-decoration: none; font-weight: 600; }
+    .mobile-menu a:hover { color: var(--accent2); }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 900px) {
+      .hero-inner, .about-grid, .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-visual { order: -1; margin-bottom: 1rem; }
+      .avatar-ring { width: 230px; height: 230px; }
+      .badge-float { display: none; }
+
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    @media (max-width: 600px) {
+      .projects-grid { grid-template-columns: 1fr; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+      section { padding: 4rem 5vw; }
+    }
+  </style>
 </head>
 
 <body>
 
-    <!-- Navigation -->
-    <nav>
-        <h2>Sohaib Shaikh</h2>
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-logo">Sohaib<span>.</span></div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
 
-        <div>
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#skills">Skills</a>
-            <a href="#projects">Projects</a>
-            <a href="#github-activity">Activity</a>
-            <a href="#education">Education</a>
-            <a href="#contact">Contact</a>
-        </div>
-    </nav>
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#home" onclick="closeMobile()">Home</a>
+    <a href="#about" onclick="closeMobile()">About</a>
+    <a href="#skills" onclick="closeMobile()">Skills</a>
+    <a href="#projects" onclick="closeMobile()">Projects</a>
+    <a href="#education" onclick="closeMobile()">Education</a>
+    <a href="#contact" onclick="closeMobile()">Contact</a>
+  </div>
 
-
-    <!-- Home -->
-    <!-- Home / Hero Section -->
-<section id="home" class="hero">
-    <div class="hero-content">
-        <p class="small-title">HELLO, I'M</p>
-        <h1>Sohaib Shaikh</h1>
-        <h2>Software Developer & Web Developer</h2>
-        <p>
-            Software Engineering diploma holder with experience
-            in web development, .NET, PHP, Python and Flutter.
+  <!-- ─── Hero ─── -->
+  <section id="home" class="hero">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <p class="hero-eyebrow">Software Developer</p>
+        <h1>Sohaib<br>Shaikh</h1>
+        <p class="hero-role">
+          Building for the web &amp; beyond <span class="cursor"></span>
         </p>
-
-        <!-- Buttons -->
-        <div class="hero-buttons">
-            <a href="#projects" class="button">View My Projects</a>
-            <a href="https://github.com/sohaib764" target="_blank" class="github-button">GitHub</a>
-            <a href="https://www.linkedin.com/in/sohaib-shaikh-b8a65223b/" target="_blank" class="linkedin-button">LinkedIn</a>
-            <a href="sohaibshaikh764@gmail.com (3).pdf" download class="cv-button">Download CV</a>
-        </div>
-    </div>
-
-    <!-- Profile Image Container -->
-    <div class="hero-image">
-        <img src="sohaibprofilepic.png" alt="Sohaib Shaikh">
-    </div>
-
-</section>
-
-
-    <!-- About -->
- <section id="about">
-
-    <h2>About Me</h2>
-
-    <p>
-        I am a Software Engineering diploma holder from Aptech
-        with a strong interest in software and web development.
-        I have experience working with PHP, C#/.NET, ASP.NET Core,
-        Flutter, Dart and Python.
-
-    </p>
-
-    <p>
-        I have developed projects including an e-commerce website,
-        a Flutter-based infant products application and
-        software projects using .NET technologies.
-
-    </p>
-
-    <p>
-        I am currently looking for an opportunity where I can
-        apply my development skills, work on real-world projects
-        and continue growing as a software developer.
-    </p>
-
-</section>
-
-
- <section id="skills">
-
-    <h2>My Skills</h2>
-
-    <!-- Is code ko HTML ke #skills section mein replace karein -->
-<div class="skills-container">
-    <div class="skill-badge"><i class="fab fa-php"></i> PHP</div>
-    <div class="skill-badge"><i class="fas fa-code"></i> C# / .NET</div>
-    <div class="skill-badge"><i class="fas fa-layer-group"></i> ASP.NET Core</div>
-    <div class="skill-badge"><i class="fas fa-mobile-alt"></i> Flutter</div>
-    <div class="skill-badge"><i class="fab fa-python"></i> Python</div>
-    <div class="skill-badge"><i class="fab fa-js"></i> JavaScript</div>
-    <div class="skill-badge"><i class="fas fa-database"></i> MySQL</div>
-</div>
-
-</section>
-
-
-    <!-- Projects -->
-    <section id="projects">
-
-        <h2>My Projects</h2>
-
-        <div class="projects-container">
-
-
-            <!-- Project 1 -->
-            <div class="project-card">
-
-                <h3>Ingco Tools Website</h3>
-
-                <p>
-                    A web project developed for showcasing
-                    Ingco Tools products and information.
-                </p>
-
-                <span>php</span>
-
-                <br>
-
-           <a href="https://github.com/sohaib764/ingco-tools-website"
-   target="_blank"
-   class="project-button">
-    View Project
-</a>
-
-            </div>
-
-
-            <!-- Project 2 -->
-            <div class="project-card">
-
-                <h3>AI Weather Forecasting Web App</h3>
-
-                <p>
-                    A Python-based web application focused on
-                    weather forecasting using AI-related techniques.
-                </p>
-
-                <span>Python + AI</span>
-
-                <br>
-
-                <a href="#"
-                   class="project-button">
-                    View Project
-                </a>
-
-            </div>
-
-
-            <!-- Project 3 -->
-            <div class="project-card">
-
-                <h3>Pharmacy Management Software</h3>
-
-                <p>
-                    Software designed to manage pharmacy-related
-                    operations and information.
-                </p>
-
-                <span>C# / .NET</span>
-
-                <br>
-
-                <a href="#"
-                   class="project-button">
-                    View Project
-                </a>
-
-            </div>
-
-
-            <!-- Project 4 -->
-            <div class="project-card">
-
-                <h3>PHP Website</h3>
-
-                <p>
-                    A web application developed using PHP
-                    for server-side web development.
-                </p>
-
-                <span>PHP</span>
-
-                <br>
-
-                <a href="#"
-                   class="project-button">
-                    View Project
-                </a>
-
-            </div>
-            <div class="project-card">
-
-    <h3>Infant Products Flutter App</h3>
-
-    <p>
-        A Flutter-based mobile application for browsing
-        and managing infant products with a user-friendly interface.
-    </p>
-
-    <span>Flutter / Dart</span>
-
-    <br>
-
-    <a href="https://github.com/sohaib764/infant-products-flutter-app"
-       target="_blank"
-       class="project-button">
-        View Project
-    </a>
-
-</div>
-
-        </div>
-
-    </section>
-
-   <!-- Is code ko Projects section ke niche add karein -->
-<!-- GitHub Stats Section -->
-<section id="github-activity">
-    <h2>GitHub Activity</h2>
-    <div class="stats-grid">
-        <img class="stat-card" src="https://github-readme-stats-sigma-five.vercel.app/api?username=sohaib764&show_icons=true&theme=tokyonight&hide_border=true" alt="Sohaib's GitHub Stats" />
-        <img class="stat-card" src="https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=sohaib764&layout=compact&theme=tokyonight&hide_border=true" alt="Top Languages" />
-    </div>
-</section>
-    <!-- Education -->
-    <section id="education">
-
-        <h2>Education</h2>
-
-        <div class="education-card">
-
-            <h3>Software Engineering</h3>
-
-            <p>Aptech Computer Education</p>
-
-        </div>
-
-    </section>
-
-
-    <!-- Contact -->
- <section id="contact">
-
-    <h2>Contact Me</h2>
-
-    <p>
-        I am open to opportunities in software development,
-        web development and IT.
-    </p>
-
-    <p>📍 Karachi, Pakistan</p>
-
-    <p>
-        GitHub:
-        <a href="https://github.com/sohaib764" target="_blank">
-            github.com/sohaib764
-        </a>
-    </p>
-
-    <p>
-        LinkedIn:
-        <a href="https://www.linkedin.com/in/sohaib-shaikh-b8a65223b/" target="_blank">
-            LinkedIn Profile
-        </a>
-    </p>
-
-
-    <!-- Contact Form -->
-
- <form
-    action="https://formspree.io/f/mljrgrvn"
-    method="POST"
-    class="contact-form"
->
-
-    <input
-        type="text"
-        name="name"
-        placeholder="Your Name"
-        required
-    >
-
-    <input
-        type="email"
-        name="email"
-        placeholder="Your Email"
-        required
-    >
-
-    <textarea
-        name="message"
-        placeholder="Your Message"
-        required
-    ></textarea>
-
-    <button type="submit">
-        Send Message
-    </button>
-
-</form>
-
-</section>
-
-
-    <!-- Footer -->
-    <footer>
-
-        <p>
-            © 2026 Sohaib Shaikh. All Rights Reserved.
+        <p class="hero-desc">
+          Software Engineering diploma holder with hands-on experience in
+          web development, .NET, PHP, Python and Flutter — looking to contribute
+          to real-world products and grow alongside great teams.
         </p>
+        <div class="hero-btns">
+          <a href="#projects" class="btn btn-primary"><i class="fas fa-folder-open"></i> View Projects</a>
+          <a href="sohaibshaikh764@gmail.com (3).pdf" download class="btn btn-outline"><i class="fas fa-download"></i> Download CV</a>
+          <a href="https://github.com/sohaib764" target="_blank" class="btn btn-outline"><i class="fab fa-github"></i> GitHub</a>
+          <a href="https://www.linkedin.com/in/sohaib-shaikh-b8a65223b/" target="_blank" class="btn btn-outline"><i class="fab fa-linkedin"></i> LinkedIn</a>
+        </div>
+      </div>
 
-    </footer>
+      <div class="hero-visual">
+        <div class="avatar-ring">
+          <img src="sohaibprofilepic.png" alt="Sohaib Shaikh"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="avatar-placeholder" style="display:none;">
+            <i class="fas fa-user"></i>
+            <span>Sohaib</span>
+          </div>
+        </div>
+        <div class="badge-float b1"><i class="fas fa-code" style="color:var(--accent2);margin-right:6px"></i> .NET Developer</div>
+        <div class="badge-float b2"><i class="fab fa-flutter" style="color:#54C5F8;margin-right:6px"></i> Flutter</div>
+        <div class="badge-float b3"><i class="fab fa-python" style="color:#FFD845;margin-right:6px"></i> Python</div>
+      </div>
+    </div>
+  </section>
 
+  <!-- ─── About ─── -->
+  <section id="about">
+    <div class="section-inner">
+      <p class="section-label reveal">Background</p>
+      <h2 class="section-heading reveal">About <em>Me</em></h2>
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <p>
+            I'm a Software Engineering diploma holder from Aptech with a strong
+            interest in building clean, functional software. I work across the stack —
+            from crafting server-side logic in PHP and C#/.NET to building cross-platform
+            mobile apps with Flutter and Dart.
+          </p>
+          <p>
+            I've shipped projects including an e-commerce website, a Flutter-based
+            infant products application, and desktop software using .NET technologies.
+            I enjoy the full cycle — from architecture decisions to polished UI.
+          </p>
+          <p>
+            Currently looking for a role where I can apply my skills on real-world
+            problems, collaborate with experienced developers, and continue growing fast.
+          </p>
+        </div>
+        <div class="about-stats reveal">
+          <div class="stat-box">
+            <span class="stat-num">5+</span>
+            <p class="stat-label">Projects Completed</p>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">7+</span>
+            <p class="stat-label">Technologies Used</p>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">2+</span>
+            <p class="stat-label">Years of Study</p>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">∞</span>
+            <p class="stat-label">Curiosity for Code</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <script src="script.js"></script>
+  <!-- ─── Skills ─── -->
+  <section id="skills">
+    <div class="section-inner">
+      <p class="section-label reveal">What I Work With</p>
+      <h2 class="section-heading reveal">My <em>Skills</em></h2>
+      <div class="skills-grid">
+        <div class="skill-pill reveal"><i class="fab fa-php"></i> PHP</div>
+        <div class="skill-pill reveal"><i class="fas fa-code"></i> C# / .NET</div>
+        <div class="skill-pill reveal"><i class="fas fa-layer-group"></i> ASP.NET Core</div>
+        <div class="skill-pill reveal"><i class="fas fa-mobile-alt"></i> Flutter</div>
+        <div class="skill-pill reveal"><i class="fab fa-python"></i> Python</div>
+        <div class="skill-pill reveal"><i class="fab fa-js-square"></i> JavaScript</div>
+        <div class="skill-pill reveal"><i class="fas fa-database"></i> MySQL</div>
+        <div class="skill-pill reveal"><i class="fab fa-html5"></i> HTML / CSS</div>
+        <div class="skill-pill reveal"><i class="fab fa-git-alt"></i> Git</div>
+      </div>
+    </div>
+  </section>
 
+  <!-- ─── Projects ─── -->
+  <section id="projects">
+    <div class="section-inner">
+      <p class="section-label reveal">What I've Built</p>
+      <h2 class="section-heading reveal">My <em>Projects</em></h2>
+      <div class="projects-grid">
+
+        <div class="proj-card reveal">
+          <div class="proj-icon"><i class="fas fa-tools"></i></div>
+          <h3>Ingco Tools Website</h3>
+          <p>A full product showcase website built for Ingco Tools, presenting their catalogue and company information in a clean, browseable interface.</p>
+          <div class="proj-foot">
+            <span class="proj-tag">PHP</span>
+            <a href="https://github.com/sohaib764/ingco-tools-website" target="_blank" class="proj-link">
+              View on GitHub <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="proj-card reveal">
+          <div class="proj-icon"><i class="fas fa-cloud-sun"></i></div>
+          <h3>AI Weather Forecasting App</h3>
+          <p>A Python-based web application that applies AI techniques for weather forecasting — combining data science with a practical, user-facing interface.</p>
+          <div class="proj-foot">
+            <span class="proj-tag">Python · AI</span>
+            <span class="proj-link disabled">Coming Soon <i class="fas fa-lock"></i></span>
+          </div>
+        </div>
+
+        <div class="proj-card reveal">
+          <div class="proj-icon"><i class="fas fa-pills"></i></div>
+          <h3>Pharmacy Management Software</h3>
+          <p>A desktop management system for pharmacy operations — handling inventory, records and daily workflows using the .NET ecosystem.</p>
+          <div class="proj-foot">
+            <span class="proj-tag">C# · .NET</span>
+            <span class="proj-link disabled">Private Repo <i class="fas fa-lock"></i></span>
+          </div>
+        </div>
+
+        <div class="proj-card reveal">
+          <div class="proj-icon"><i class="fas fa-globe"></i></div>
+          <h3>PHP Web Application</h3>
+          <p>A server-side web application built with PHP, covering core concepts of dynamic web development including form handling, sessions and database integration.</p>
+          <div class="proj-foot">
+            <span class="proj-tag">PHP</span>
+            <span class="proj-link disabled">Private Repo <i class="fas fa-lock"></i></span>
+          </div>
+        </div>
+
+        <div class="proj-card reveal">
+          <div class="proj-icon"><i class="fas fa-baby"></i></div>
+          <h3>Infant Products Flutter App</h3>
+          <p>A cross-platform mobile app for browsing and managing infant products, built with Flutter and Dart. Features a clean, parent-friendly UI.</p>
+          <div class="proj-foot">
+            <span class="proj-tag">Flutter · Dart</span>
+            <a href="https://github.com/sohaib764/infant-products-flutter-app" target="_blank" class="proj-link">
+              View on GitHub <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── GitHub CTA ─── -->
+  <section id="github">
+    <div class="section-inner">
+      <p class="section-label reveal">Open Source</p>
+      <h2 class="section-heading reveal">Code on <em>GitHub</em></h2>
+      <div class="github-cta reveal">
+        <div class="github-cta-left">
+          <div class="github-avatar">
+            <i class="fab fa-github"></i>
+          </div>
+          <div>
+            <h3>sohaib764</h3>
+            <p>Check out my repositories, source code and open source contributions directly on GitHub.</p>
+          </div>
+        </div>
+        <a href="https://github.com/sohaib764" target="_blank" class="btn btn-primary">
+          <i class="fab fa-github"></i> Visit My GitHub
+        </a>
+      </div>
+
+      <div class="repo-highlights">
+        <div class="repo-card reveal">
+          <div class="repo-card-top">
+            <i class="fas fa-book-open"></i>
+            <span class="proj-tag">PHP</span>
+          </div>
+          <h4>ingco-tools-website</h4>
+          <p>Product showcase website for Ingco Tools built with PHP.</p>
+          <a href="https://github.com/sohaib764/ingco-tools-website" target="_blank" class="proj-link">
+            View Repo <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+        <div class="repo-card reveal">
+          <div class="repo-card-top">
+            <i class="fas fa-book-open"></i>
+            <span class="proj-tag">Flutter · Dart</span>
+          </div>
+          <h4>infant-products-flutter-app</h4>
+          <p>Cross-platform mobile app for infant products built with Flutter.</p>
+          <a href="https://github.com/sohaib764/infant-products-flutter-app" target="_blank" class="proj-link">
+            View Repo <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+        <div class="repo-card reveal">
+          <div class="repo-card-top">
+            <i class="fas fa-user-circle"></i>
+            <span class="proj-tag">Portfolio</span>
+          </div>
+          <h4>All Repositories</h4>
+          <p>Browse all my projects, experiments and code on my GitHub profile.</p>
+          <a href="https://github.com/sohaib764?tab=repositories" target="_blank" class="proj-link">
+            View All <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Education ─── -->
+  <section id="education">
+    <div class="section-inner">
+      <p class="section-label reveal">Academic Background</p>
+      <h2 class="section-heading reveal">My <em>Education</em></h2>
+      <div class="edu-card reveal">
+        <div class="edu-icon"><i class="fas fa-graduation-cap"></i></div>
+        <div class="edu-info">
+          <h3>Software Engineering Diploma</h3>
+          <p>Aptech Computer Education</p>
+          <span class="edu-badge">Karachi, Pakistan</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Contact ─── -->
+  <section id="contact">
+    <div class="section-inner">
+      <p class="section-label reveal">Get In Touch</p>
+      <h2 class="section-heading reveal">Let's <em>Connect</em></h2>
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <h3>Open to Opportunities</h3>
+          <p>I'm actively looking for software development roles. If you have an opening or just want to talk tech, feel free to reach out.</p>
+          <a href="https://github.com/sohaib764" target="_blank" class="contact-link">
+            <i class="fab fa-github"></i> github.com/sohaib764
+          </a>
+          <a href="https://www.linkedin.com/in/sohaib-shaikh-b8a65223b/" target="_blank" class="contact-link">
+            <i class="fab fa-linkedin"></i> LinkedIn Profile
+          </a>
+          <a href="#" class="contact-link">
+            <i class="fas fa-map-marker-alt"></i> Karachi, Pakistan
+          </a>
+        </div>
+
+        <form
+          action="https://formspree.io/f/mljrgrvn"
+          method="POST"
+          class="contact-form reveal"
+        >
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="your@email.com" required />
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="What's on your mind?" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Send Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Footer ─── -->
+  <footer>
+    <p>© 2026 <span>Sohaib Shaikh</span>. All Rights Reserved. Built with care in Karachi 🇵🇰</p>
+  </footer>
+
+  <script>
+    // ─── Hamburger Menu ───
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
+    });
+
+    function closeMobile() {
+      mobileMenu.classList.remove('open');
+    }
+
+    // ─── Scroll Reveal ───
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          // Stagger siblings within same parent
+          const siblings = [...entry.target.parentElement.querySelectorAll('.reveal:not(.visible)')];
+          const delay = siblings.indexOf(entry.target) * 80;
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, delay);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    reveals.forEach(el => observer.observe(el));
+
+    // ─── Nav active state on scroll ───
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(sec => {
+        if (window.scrollY >= sec.offsetTop - 120) current = sec.id;
+      });
+      navLinks.forEach(a => {
+        a.style.color = a.getAttribute('href') === `#${current}` ? 'var(--white)' : '';
+      });
+    });
+
+    // ─── Typing role ───
+    const roles = [
+      'Software Developer',
+      'Web Developer',
+      '.NET Developer',
+      'Flutter Developer',
+      'Python Enthusiast'
+    ];
+
+    const roleEl = document.querySelector('.hero-role');
+    if (roleEl) {
+      let ri = 0, ci = 0, deleting = false;
+      const textNode = document.createTextNode('');
+      const cursor = roleEl.querySelector('.cursor');
+      roleEl.insertBefore(textNode, cursor);
+
+      // Remove static text
+      roleEl.childNodes.forEach(n => {
+        if (n.nodeType === Node.TEXT_NODE && n !== textNode) n.remove();
+      });
+
+      function type() {
+        const word = roles[ri];
+        if (!deleting) {
+          textNode.textContent = word.slice(0, ++ci);
+          if (ci === word.length) {
+            deleting = true;
+            setTimeout(type, 1800);
+            return;
+          }
+        } else {
+          textNode.textContent = word.slice(0, --ci);
+          if (ci === 0) {
+            deleting = false;
+            ri = (ri + 1) % roles.length;
+          }
+        }
+        setTimeout(type, deleting ? 55 : 90);
+      }
+      type();
+    }
+  </script>
 </body>
 </html>
